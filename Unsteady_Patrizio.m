@@ -145,7 +145,8 @@ alpha=degtorad(7*ones(Nxw,2*Nyw));
 % there are two panels in the wake with non-zero wake values, the closer
 % one is handles with Am_wing and the second panel is handles using the
 % "wake of the physical surfaces"....and do on and so forth
-for t=1:tmax
+ts=tmax-20;
+for t=1:ts
     t
     %    xvor=xvor+uinf*dt;
     
@@ -279,6 +280,8 @@ for t=1:tmax
         
         %%        
         waken(1,i)=wake2vw+wake2vt+wake2vr;        % total effect of the wakes on the panel i
+        a(:,i)=a2r+a2t+a2w;                        % total induced velocity vector on pnael i from wakes pf wing, tail and rudder
+        % I should do similar thing for drag!!! remember!!!
         %% vortex induced effect
         %         [Vv,Vvn(i)]=vortexline(n(:,i),xcol1,ycol1,zcol1,xvor,yvor,zvor,xvor,yvor+bw/16,zvor,Gv);
         %         a(:,i)=a2w+a2t+Vv;
@@ -333,11 +336,11 @@ toc
 % surf(x,y,z,[G(1:2*Ny,34)';G(2*Ny+1:4*Ny,34)';G(4*Ny+1:6*Ny,34)';G(6*Ny+1:8*Ny,34)'])
 figure
 
-plot(linspace(0,tmax*dt*uinf/crw,tmax),Liftw)
-xlabel('time');ylabel('lift'),ylim([0,0.07]),xlim([0,tmax*dt*uinf/crw])
+plot(linspace(0,ts*dt*uinf/crw,ts),Liftw)
+xlabel('time');ylabel('lift'),ylim([0,0.07]),xlim([0,ts*dt*uinf/crw])
 
 figure
-surf(repmat(linspace(0,tmax*dt*uinf/crw,tmax),2*Ny,1),repmat(y(1,1:2*Ny),tmax,1)',cLnewv)
+surf(repmat(linspace(0,ts*dt*uinf/crw,ts),2*Ny,1),repmat(y(1,1:2*Ny),ts,1)',cLnewv)
 xlabel('time');ylabel('span');zlabel('c_l');
 view(-150,15);
 

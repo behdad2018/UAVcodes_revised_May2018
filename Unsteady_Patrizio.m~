@@ -145,7 +145,7 @@ alpha=degtorad(7*ones(Nxw,2*Nyw));
 % there are two panels in the wake with non-zero wake values, the closer
 % one is handles with Am_wing and the second panel is handles using the
 % "wake of the physical surfaces"....and do on and so forth
-for t=1:tmax
+for t=1:tmax-20
     t
     %    xvor=xvor+uinf*dt;
     
@@ -279,6 +279,7 @@ for t=1:tmax
         
         %%        
         waken(1,i)=wake2vw+wake2vt+wake2vr;        % total effect of the wakes on the panel i
+        a(:,i)=a2r+a2t+a2w;                           % total induced velocity vector on pnael i from wakes pf wing, tail and rudder
         %% vortex induced effect
         %         [Vv,Vvn(i)]=vortexline(n(:,i),xcol1,ycol1,zcol1,xvor,yvor,zvor,xvor,yvor+bw/16,zvor,Gv);
         %         a(:,i)=a2w+a2t+Vv;
@@ -304,7 +305,7 @@ for t=1:tmax
     end
     
 
-    % passing the TE vortex (which is the same as first wake row) to the fi row of the wake
+    % passing the TE vortex (which is the same as first wake row) to the second row of the wake
     Gww(1:2*Nyw)= G(1+2*(Nxw-1)*Nyw:2*Nxw*Nyw,t);
 
     %    Gwt(1:2*Nyt)= G(1+2*Nxw*Nyw+2*(Nxt-1)*Nyt:2*Nxw*Nyw+2*Nxt*Nyt,t);
